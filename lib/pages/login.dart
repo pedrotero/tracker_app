@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +17,9 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  final UserController usercon = Get.find();
+  TextEditingController _controllerUser = TextEditingController();
+  TextEditingController _controllerPass = TextEditingController();
 
   @override
   void initState() {
@@ -78,6 +83,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         TextField(
                           autofocus: true,
+                          controller: _controllerUser,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Usuario',
@@ -115,6 +121,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         TextField(
                           autofocus: true,
+                          obscureText: true,
+                          controller: _controllerPass,
                           decoration: InputDecoration(
                             hintText: 'Contraseña',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -153,8 +161,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 30.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed('Home');
+                            onPressed: () {
+                              var tempUser = {
+                                "usuario": _controllerUser.text,
+                                "contraseña": _controllerPass.text
+                              };
+                              print(tempUser);
+                              print(usercon.users[0]);
+                              if (tempUser["usuario"] ==
+                                      usercon.users[0]["usuario"] &&
+                                  tempUser["contraseña"] ==
+                                      usercon.users[0]["contraseña"]) {
+                                context.pushNamed("Home");
+                              }
                             },
                             text: 'Login',
                             options: FFButtonOptions(
