@@ -6,8 +6,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'segmentable_model.dart';
-export 'segmentable_model.dart';
 
 class SegmentableWidget extends StatefulWidget {
   const SegmentableWidget({Key? key}) : super(key: key);
@@ -17,23 +15,12 @@ class SegmentableWidget extends StatefulWidget {
 }
 
 class _SegmentableWidgetState extends State<SegmentableWidget> {
-  late SegmentableModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SegmentableModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override

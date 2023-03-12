@@ -5,34 +5,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'segmentos_model.dart';
-export 'segmentos_model.dart';
 
-class SegmentosWidget extends StatefulWidget {
-  const SegmentosWidget({Key? key}) : super(key: key);
+class HistorialWidget extends StatefulWidget {
+  const HistorialWidget({Key? key}) : super(key: key);
 
   @override
-  _SegmentosWidgetState createState() => _SegmentosWidgetState();
+  _HistorialWidgetState createState() => _HistorialWidgetState();
 }
 
-class _SegmentosWidgetState extends State<SegmentosWidget> {
-  late SegmentosModel _model;
-
+class _HistorialWidgetState extends State<HistorialWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SegmentosModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -58,7 +45,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
         title: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Text(
-            'Segmentos',
+            'Historial de actividades',
             style: FlutterFlowTheme.of(context).title2.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -92,7 +79,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Nombre',
+                                'Fecha',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -124,7 +111,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Origen y Destino',
+                                'Recorrido',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .title3
@@ -141,7 +128,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Tiempo Récord',
+                                'Duración',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -184,7 +171,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      context.pushNamed('SegmentoInspec');
+                                      context.pushNamed('HistorialInspec');
                                     },
                                     child: Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),

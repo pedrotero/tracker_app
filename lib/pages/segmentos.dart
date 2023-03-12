@@ -5,34 +5,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'historial_model.dart';
-export 'historial_model.dart';
 
-class HistorialWidget extends StatefulWidget {
-  const HistorialWidget({Key? key}) : super(key: key);
+class SegmentosWidget extends StatefulWidget {
+  const SegmentosWidget({Key? key}) : super(key: key);
 
   @override
-  _HistorialWidgetState createState() => _HistorialWidgetState();
+  _SegmentosWidgetState createState() => _SegmentosWidgetState();
 }
 
-class _HistorialWidgetState extends State<HistorialWidget> {
-  late HistorialModel _model;
-
+class _SegmentosWidgetState extends State<SegmentosWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HistorialModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -58,7 +45,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
         title: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Text(
-            'Historial de actividades',
+            'Segmentos',
             style: FlutterFlowTheme.of(context).title2.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -92,7 +79,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Fecha',
+                                'Nombre',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -124,7 +111,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Recorrido',
+                                'Origen y Destino',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .title3
@@ -141,7 +128,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Duración',
+                                'Tiempo Récord',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -184,7 +171,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      context.pushNamed('HistorialInspec');
+                                      context.pushNamed('SegmentoInspec');
                                     },
                                     child: Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),

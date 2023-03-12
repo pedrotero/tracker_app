@@ -4,8 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'historial_inspec_model.dart';
-export 'historial_inspec_model.dart';
 
 class HistorialInspecWidget extends StatefulWidget {
   const HistorialInspecWidget({
@@ -20,23 +18,12 @@ class HistorialInspecWidget extends StatefulWidget {
 }
 
 class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
-  late HistorialInspecModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HistorialInspecModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -96,37 +83,37 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                   style: FlutterFlowTheme.of(context).bodyText1,
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
-                  child: FlutterFlowGoogleMap(
-                    controller: _model.googleMapsController,
-                    onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
-                    initialLocation: _model.googleMapsCenter ??=
-                        LatLng(13.106061, -59.613158),
-                    markers: (widget.aaaaa ?? [])
-                        .map(
-                          (marker) => FlutterFlowMarker(
-                            marker.serialize(),
-                            marker,
-                          ),
-                        )
-                        .toList(),
-                    markerColor: GoogleMarkerColor.violet,
-                    mapType: MapType.normal,
-                    style: GoogleMapStyle.standard,
-                    initialZoom: 14.0,
-                    allowInteraction: true,
-                    allowZoom: true,
-                    showZoomControls: true,
-                    showLocation: true,
-                    showCompass: true,
-                    showMapToolbar: false,
-                    showTraffic: false,
-                    centerMapOnMarkerTap: true,
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   child: Padding(
+              //     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+              //     child: FlutterFlowGoogleMap(
+              //       controller: _model.googleMapsController,
+              //       onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
+              //       initialLocation: _model.googleMapsCenter ??=
+              //           LatLng(13.106061, -59.613158),
+              //       markers: (widget.aaaaa ?? [])
+              //           .map(
+              //             (marker) => FlutterFlowMarker(
+              //               marker.serialize(),
+              //               marker,
+              //             ),
+              //           )
+              //           .toList(),
+              //       markerColor: GoogleMarkerColor.violet,
+              //       mapType: MapType.normal,
+              //       style: GoogleMapStyle.standard,
+              //       initialZoom: 14.0,
+              //       allowInteraction: true,
+              //       allowZoom: true,
+              //       showZoomControls: true,
+              //       showLocation: true,
+              //       showCompass: true,
+              //       showMapToolbar: false,
+              //       showTraffic: false,
+              //       centerMapOnMarkerTap: true,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

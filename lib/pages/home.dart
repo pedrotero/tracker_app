@@ -4,8 +4,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'home_model.dart';
-export 'home_model.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -15,23 +13,12 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  late HomeModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomeModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -55,10 +42,15 @@ class _HomeWidgetState extends State<HomeWidget> {
           actions: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(
-                Icons.exit_to_app,
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                size: 30.0,
+              child: new IconButton(
+                onPressed: () async {
+                  context.pushNamed('Login');
+                },
+                icon: Icon(
+                  Icons.exit_to_app,
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  size: 30.0,
+                ),
               ),
             ),
           ],
@@ -203,23 +195,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                       width: 100.0,
                       height: 100.0,
                       decoration: BoxDecoration(),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 0.0, 20.0),
-                    child: InkWell(
-                      onTap: () async {
-                        context.pushNamed('Login');
-                      },
-                      child: Text(
-                        'Log out',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0x5F820000),
-                              fontSize: 24.0,
-                            ),
-                      ),
                     ),
                   ),
                 ],
