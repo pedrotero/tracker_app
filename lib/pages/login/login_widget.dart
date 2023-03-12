@@ -71,7 +71,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   child: Text(
                     'TrackerApp',
                     textAlign: TextAlign.center,
@@ -83,7 +83,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(60.0, 100.0, 60.0, 150.0),
+                      EdgeInsetsDirectional.fromSTEB(60.0, 90.0, 60.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +210,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               0.0, 0.0, 0.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Colors.transparent,
+                          color: Color.fromARGB(0, 224, 224, 224),
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
                                     fontFamily: 'Poppins',
