@@ -1,17 +1,14 @@
-import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HistorialInspecWidget extends StatefulWidget {
   const HistorialInspecWidget({
     Key? key,
-    this.aaaaa,
   }) : super(key: key);
-
-  final List<LatLng>? aaaaa;
 
   @override
   _HistorialInspecWidgetState createState() => _HistorialInspecWidgetState();
@@ -83,37 +80,19 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                   style: FlutterFlowTheme.of(context).bodyText1,
                 ),
               ),
-              // Expanded(
-              //   child: Padding(
-              //     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
-              //     child: FlutterFlowGoogleMap(
-              //       controller: _model.googleMapsController,
-              //       onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
-              //       initialLocation: _model.googleMapsCenter ??=
-              //           LatLng(13.106061, -59.613158),
-              //       markers: (widget.aaaaa ?? [])
-              //           .map(
-              //             (marker) => FlutterFlowMarker(
-              //               marker.serialize(),
-              //               marker,
-              //             ),
-              //           )
-              //           .toList(),
-              //       markerColor: GoogleMarkerColor.violet,
-              //       mapType: MapType.normal,
-              //       style: GoogleMapStyle.standard,
-              //       initialZoom: 14.0,
-              //       allowInteraction: true,
-              //       allowZoom: true,
-              //       showZoomControls: true,
-              //       showLocation: true,
-              //       showCompass: true,
-              //       showMapToolbar: false,
-              //       showTraffic: false,
-              //       centerMapOnMarkerTap: true,
-              //     ),
-              //   ),
-              // ),
+              Expanded(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(13.106061, -59.613158), zoom: 12),
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('marker_1'),
+                      position: LatLng(37.7749, -122.4194),
+                      infoWindow: InfoWindow(title: 'San Francisco'),
+                    ),
+                  },
+                ),
+              ),
             ],
           ),
         ),

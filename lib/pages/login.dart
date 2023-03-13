@@ -62,8 +62,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     child: Text(
                       'TrackerApp',
                       textAlign: TextAlign.center,
@@ -75,7 +74,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(60.0, 68.0, 60.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(60.0, 0.0, 60.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

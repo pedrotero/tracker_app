@@ -1,8 +1,5 @@
-import 'lat_lng.dart';
-
 class FFPlace {
   const FFPlace({
-    this.latLng = const LatLng(0.0, 0.0),
     this.name = '',
     this.address = '',
     this.city = '',
@@ -11,7 +8,6 @@ class FFPlace {
     this.zipCode = '',
   });
 
-  final LatLng latLng;
   final String name;
   final String address;
   final String city;
@@ -21,7 +17,7 @@ class FFPlace {
 
   @override
   String toString() => '''FFPlace(
-        latLng: $latLng,
+        
         name: $name,
         address: $address,
         city: $city,
@@ -31,12 +27,9 @@ class FFPlace {
       )''';
 
   @override
-  int get hashCode => latLng.hashCode;
-
   @override
   bool operator ==(other) =>
       other is FFPlace &&
-      latLng == other.latLng &&
       name == other.name &&
       address == other.address &&
       city == other.city &&

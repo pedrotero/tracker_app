@@ -7,7 +7,7 @@ import '../flutter_flow_theme.dart';
 
 import '../../index.dart';
 import '../../main.dart';
-import '../lat_lng.dart';
+
 import '../place.dart';
 import 'serialization_util.dart';
 
@@ -59,9 +59,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'SegmentoInspec',
               path: 'segmentoInspec',
-              builder: (context, params) => SegmentoInspecWidget(
-                aaaaa: params.getParam<LatLng>('aaaaa', ParamType.LatLng, true),
-              ),
+              builder: (context, params) => SegmentoInspecWidget(),
             ),
             FFRoute(
               name: 'Segmentable',
@@ -86,9 +84,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'HistorialInspec',
               path: 'historialInspec',
-              builder: (context, params) => HistorialInspecWidget(
-                aaaaa: params.getParam<LatLng>('aaaaa', ParamType.LatLng, true),
-              ),
+              builder: (context, params) => HistorialInspecWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

@@ -1,4 +1,4 @@
-import '/flutter_flow/flutter_flow_google_map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -56,6 +56,19 @@ class _InActionWidgetState extends State<InActionWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              Expanded(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(13.106061, -59.613158), zoom: 12),
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('marker_1'),
+                      position: LatLng(37.7749, -122.4194),
+                      infoWindow: InfoWindow(title: 'San Francisco'),
+                    ),
+                  },
+                ),
+              ),
               // Expanded(
               //   child: FlutterFlowGoogleMap(
               //     controller: _model.googleMapsController,
