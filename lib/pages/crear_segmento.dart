@@ -78,8 +78,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -88,8 +90,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
@@ -98,8 +102,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
@@ -108,8 +114,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   contentPadding:
@@ -133,8 +141,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -143,8 +153,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
@@ -153,8 +165,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
@@ -163,8 +177,10 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                       width: 1.0,
                     ),
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
                     ),
                   ),
                   contentPadding:

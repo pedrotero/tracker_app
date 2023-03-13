@@ -86,6 +86,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     contentPadding:
                         EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
@@ -131,6 +135,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     contentPadding:
                         EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
@@ -176,6 +184,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     contentPadding:
                         EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
