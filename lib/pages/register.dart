@@ -4,8 +4,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'register_model.dart';
-export 'register_model.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key}) : super(key: key);
@@ -15,25 +13,11 @@ class RegisterWidget extends StatefulWidget {
 }
 
 class _RegisterWidgetState extends State<RegisterWidget> {
-  late RegisterModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RegisterModel());
-
-    _model.yourNameController ??= TextEditingController();
-    _model.passwordController ??= TextEditingController();
-    _model.cityController ??= TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
   }
 
   @override
@@ -65,7 +49,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                 child: TextFormField(
-                  controller: _model.yourNameController,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: 'Your Name',
@@ -106,14 +89,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
-                  validator:
-                      _model.yourNameControllerValidator.asValidator(context),
                 ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                 child: TextFormField(
-                  controller: _model.passwordController,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -154,14 +134,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
-                  validator:
-                      _model.passwordControllerValidator.asValidator(context),
                 ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                 child: TextFormField(
-                  controller: _model.cityController,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: 'Your City',
@@ -202,8 +179,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
                   maxLines: null,
-                  validator:
-                      _model.cityControllerValidator.asValidator(context),
                 ),
               ),
               Align(

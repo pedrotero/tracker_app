@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -10,8 +12,17 @@ import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final String response =
+      await rootBundle.loadString('assets/jsons/users.json');
+  final users = await json.decode(response)["users"];
+  UserController controller = Get.put(UserController());
+  controller.users = users;
 
   runApp(MyApp());
+}
+
+class UserController extends GetxController {
+  var users;
 }
 
 class MyApp extends StatefulWidget {
@@ -47,7 +58,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp.router(
       title: 'TrackerApp',
       locale: _locale,
       supportedLocales: const [Locale('en', '')],

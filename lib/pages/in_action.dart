@@ -7,8 +7,6 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'in_action_model.dart';
-export 'in_action_model.dart';
 
 class InActionWidget extends StatefulWidget {
   const InActionWidget({Key? key}) : super(key: key);
@@ -18,25 +16,14 @@ class InActionWidget extends StatefulWidget {
 }
 
 class _InActionWidgetState extends State<InActionWidget> {
-  late InActionModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InActionModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -69,64 +56,64 @@ class _InActionWidgetState extends State<InActionWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
-                child: FlutterFlowGoogleMap(
-                  controller: _model.googleMapsController,
-                  onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
-                  initialLocation: _model.googleMapsCenter ??=
-                      LatLng(13.106061, -59.613158),
-                  markerColor: GoogleMarkerColor.violet,
-                  mapType: MapType.normal,
-                  style: GoogleMapStyle.standard,
-                  initialZoom: 14.0,
-                  allowInteraction: true,
-                  allowZoom: true,
-                  showZoomControls: true,
-                  showLocation: true,
-                  showCompass: false,
-                  showMapToolbar: false,
-                  showTraffic: false,
-                  centerMapOnMarkerTap: true,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  FlutterFlowTimer(
-                    initialTime: _model.timerMilliseconds,
-                    getDisplayTime: (value) => StopWatchTimer.getDisplayTime(
-                        value,
-                        milliSecond: false),
-                    timer: _model.timerController,
-                    updateStateInterval: Duration(milliseconds: 1000),
-                    onChanged: (value, displayTime, shouldUpdate) {
-                      _model.timerMilliseconds = value;
-                      _model.timerValue = displayTime;
-                      if (shouldUpdate) setState(() {});
-                    },
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                    child: Text(
-                      '(distance)',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Poppins',
-                            fontSize: 30.0,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
+              // Expanded(
+              //   child: FlutterFlowGoogleMap(
+              //     controller: _model.googleMapsController,
+              //     onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
+              //     initialLocation: _model.googleMapsCenter ??=
+              //         LatLng(13.106061, -59.613158),
+              //     markerColor: GoogleMarkerColor.violet,
+              //     mapType: MapType.normal,
+              //     style: GoogleMapStyle.standard,
+              //     initialZoom: 14.0,
+              //     allowInteraction: true,
+              //     allowZoom: true,
+              //     showZoomControls: true,
+              //     showLocation: true,
+              //     showCompass: false,
+              //     showMapToolbar: false,
+              //     showTraffic: false,
+              //     centerMapOnMarkerTap: true,
+              //   ),
+              // ),
+              // Row(
+              //   mainAxisSize: MainAxisSize.max,
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     FlutterFlowTimer(
+              //       initialTime: _model.timerMilliseconds,
+              //       getDisplayTime: (value) => StopWatchTimer.getDisplayTime(
+              //           value,
+              //           milliSecond: false),
+              //       timer: _model.timerController,
+              //       updateStateInterval: Duration(milliseconds: 1000),
+              //       onChanged: (value, displayTime, shouldUpdate) {
+              //         _model.timerMilliseconds = value;
+              //         _model.timerValue = displayTime;
+              //         if (shouldUpdate) setState(() {});
+              //       },
+              //       textAlign: TextAlign.start,
+              //       style: FlutterFlowTheme.of(context).bodyText1.override(
+              //             fontFamily: 'Poppins',
+              //             color: FlutterFlowTheme.of(context).primaryColor,
+              //             fontSize: 30.0,
+              //             fontWeight: FontWeight.normal,
+              //           ),
+              //     ),
+              //     Padding(
+              //       padding:
+              //           EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+              //       child: Text(
+              //         '(distance)',
+              //         style: FlutterFlowTheme.of(context).bodyText1.override(
+              //               fontFamily: 'Poppins',
+              //               fontSize: 30.0,
+              //             ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
                 child: Row(

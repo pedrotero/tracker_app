@@ -1,11 +1,11 @@
+import 'package:get/get.dart';
+import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'login_model.dart';
-export 'login_model.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -15,26 +15,15 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  late LoginModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  final UserController usercon = Get.find();
+  TextEditingController _controllerUser = TextEditingController();
+  TextEditingController _controllerPass = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
-
-    _model.textController1 ??= TextEditingController();
-    _model.textController2 ??= TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    _unfocusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -85,16 +74,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
-                        60.0, 100.0, 60.0, 150.0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(60.0, 68.0, 60.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        TextFormField(
-                          controller: _model.textController1,
+                        TextField(
                           autofocus: true,
+                          controller: _controllerUser,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Usuario',
@@ -129,13 +118,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                           ),
                           style: FlutterFlowTheme.of(context).bodyText1,
-                          validator: _model.textController1Validator
-                              .asValidator(context),
                         ),
-                        TextFormField(
-                          controller: _model.textController2,
+                        TextField(
                           autofocus: true,
-                          obscureText: !_model.passwordVisibility,
+                          obscureText: true,
+                          controller: _controllerPass,
                           decoration: InputDecoration(
                             hintText: 'Contraseña',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -167,31 +154,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                               borderRadius: BorderRadius.circular(1.0),
                             ),
-                            suffixIcon: InkWell(
-                              onTap: () => setState(
-                                () => _model.passwordVisibility =
-                                    !_model.passwordVisibility,
-                              ),
-                              focusNode: FocusNode(skipTraversal: true),
-                              child: Icon(
-                                _model.passwordVisibility
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                                color: Color(0xFF757575),
-                                size: 22.0,
-                              ),
-                            ),
                           ),
                           style: FlutterFlowTheme.of(context).bodyText1,
-                          validator: _model.textController2Validator
-                              .asValidator(context),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 30.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed('Home');
+                            onPressed: () {
+                              var tempUser = {
+                                "usuario": _controllerUser.text,
+                                "contraseña": _controllerPass.text
+                              };
+                              print(tempUser);
+                              print(usercon.users[0]);
+                              if (tempUser["usuario"] ==
+                                      usercon.users[0]["usuario"] &&
+                                  tempUser["contraseña"] ==
+                                      usercon.users[0]["contraseña"]) {
+                                context.pushNamed("Home");
+                              }
                             },
                             text: 'Login',
                             options: FFButtonOptions(
