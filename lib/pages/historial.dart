@@ -27,18 +27,6 @@ class _HistorialWidgetState extends State<HistorialWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          context.pushNamed('CrearSegmento');
-        },
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        elevation: 8.0,
-        child: Icon(
-          Icons.add,
-          color: FlutterFlowTheme.of(context).primaryBtnText,
-          size: 30.0,
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: true,

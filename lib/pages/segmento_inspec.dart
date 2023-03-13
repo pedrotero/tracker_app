@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,10 +7,7 @@ import 'package:flutter/material.dart';
 class SegmentoInspecWidget extends StatefulWidget {
   const SegmentoInspecWidget({
     Key? key,
-    this.aaaaa,
   }) : super(key: key);
-
-  final List<LatLng>? aaaaa;
 
   @override
   _SegmentoInspecWidgetState createState() => _SegmentoInspecWidgetState();
@@ -79,6 +77,19 @@ class _SegmentoInspecWidgetState extends State<SegmentoInspecWidget> {
                 child: Text(
                   'Tiempo récord: (hh:mm:dd)',
                   style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ),
+              Expanded(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(13.106061, -59.613158), zoom: 12),
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('marker_1'),
+                      position: LatLng(37.7749, -122.4194),
+                      infoWindow: InfoWindow(title: 'San Francisco'),
+                    ),
+                  },
                 ),
               ),
               // Expanded(

@@ -171,7 +171,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                       InkWell(
                         onTap: () async {
-                          context.pushNamed('Segmentos');
+                          context.pushNamed('Historial');
                         },
                         child: ListTile(
                           title: Text(
