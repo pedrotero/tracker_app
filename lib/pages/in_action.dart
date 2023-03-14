@@ -136,6 +136,37 @@ class _InActionWidgetState extends State<InActionWidget> {
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.5, 0.0),
+                      child: Text(
+                        '0.00 km',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 30.0,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(12.5, 0.0, 0.0, 0.0),
+                      child: Text(
+                        '00:00',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 30.0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.5, 0.0),
                       child: FFButtonWidget(
                         onPressed: () {
                           print('Button pressed ...');

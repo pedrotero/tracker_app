@@ -113,31 +113,20 @@ class _SegmentableWidgetState extends State<SegmentableWidget> {
                           ),
                         ),
                       ],
-                      rows: rarara
-                          .mapIndexed((rararaIndex, rararaItem) => [
-                                Text(
-                                  'Edit Column 1',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                      ),
-                                ),
-                                Text(
-                                  'Edit Column 2',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                      ),
-                                ),
-                              ].map((c) => DataCell(c)).toList())
-                          .map((e) => DataRow(cells: e))
-                          .toList(),
+                      rows: <DataRow>[
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Malecon')),
+                            DataCell(Text('2km')),
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Malecon')),
+                            DataCell(Text('2km')),
+                          ],
+                        ),
+                      ],
                       headingRowColor: MaterialStateProperty.all(
                         FlutterFlowTheme.of(context).primaryBackground,
                       ),

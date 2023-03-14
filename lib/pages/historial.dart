@@ -17,6 +17,9 @@ class _HistorialWidgetState extends State<HistorialWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
+  int randomIndex = 3;
+  int randomItem = 3;
+
   @override
   void initState() {
     super.initState();
@@ -129,68 +132,44 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             ),
                           ),
                         ],
-                        rows: random
-                            .mapIndexed((randomIndex, randomItem) => [
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      'Edit Column 1',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      context.pushNamed('HistorialInspec');
-                                    },
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        'Ver',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF0A6C19),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      'Edit Column 4',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                ].map((c) => DataCell(c)).toList())
-                            .map((e) => DataRow(cells: e))
-                            .toList(),
+                        rows: <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('20/03/2023')),
+                              DataCell(Text('5km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('HistorialInspec');
+                                  })),
+                              DataCell(Text('30:00')),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('20/03/2023')),
+                              DataCell(Text('5km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('HistorialInspec');
+                                  })),
+                              DataCell(Text('30:00')),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('20/03/2023')),
+                              DataCell(Text('5km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('HistorialInspec');
+                                  })),
+                              DataCell(Text('30:00')),
+                            ],
+                          ),
+                        ],
                         headingRowColor: MaterialStateProperty.all(
                           Color(0xFF464646),
                         ),

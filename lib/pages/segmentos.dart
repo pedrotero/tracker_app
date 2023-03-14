@@ -141,68 +141,44 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             ),
                           ),
                         ],
-                        rows: random
-                            .mapIndexed((randomIndex, randomItem) => [
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      'Edit Column 1',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      context.pushNamed('SegmentoInspec');
-                                    },
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        'Ver',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF0A6C19),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      'Edit Column 4',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ),
-                                ].map((c) => DataCell(c)).toList())
-                            .map((e) => DataRow(cells: e))
-                            .toList(),
+                        rows: <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('Malecon')),
+                              DataCell(Text('2km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('SegmentoInspec');
+                                  })),
+                              DataCell(Text('12:00')),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('Malecon')),
+                              DataCell(Text('2km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('SegmentoInspec');
+                                  })),
+                              DataCell(Text('12:00')),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('Malecon')),
+                              DataCell(Text('2km')),
+                              DataCell(InkWell(
+                                  child: Text('Ver'),
+                                  onTap: () async {
+                                    context.pushNamed('SegmentoInspec');
+                                  })),
+                              DataCell(Text('12:00')),
+                            ],
+                          ),
+                        ],
                         headingRowColor: MaterialStateProperty.all(
                           Color(0xFF464646),
                         ),
