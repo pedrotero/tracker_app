@@ -40,6 +40,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
@@ -169,11 +170,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      usercon.users.add({
+                      var newUser = {
                         "usuario": _controllerUser.text,
                         "contraseña": _controllerPass.text
-                      });
-                      await writeUser(usercon.users);
+                      };
+                      usercon.loggedUser = usercon.users.add(newUser);
+                      //await writeUser(usercon.users);
                       context.pushNamed('Home');
                     },
                     text: 'Registrarse',
