@@ -1,12 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:geolocator/geolocator.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -167,13 +165,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 "usuario": _controllerUser.text,
                                 "contraseña": _controllerPass.text
                               };
-                              print(tempUser);
-                              print(usercon.users[0]);
-                              if (tempUser["usuario"] ==
-                                      usercon.users[0]["usuario"] &&
-                                  tempUser["contraseña"] ==
-                                      usercon.users[0]["contraseña"]) {
+                              var userIndex = usercon.users.indexWhere((user) =>
+                                  mapEquals({
+                                    "usuario": user["usuario"],
+                                    "contraseña": user["contraseña"]
+                                  }, tempUser));
+                              if (userIndex != -1) {
+                                usercon.loggedUser = usercon.users[userIndex];
                                 context.pushNamed("Home");
+                              } else {
+                                print("a");
+                                AlertDialog alert = AlertDialog(
+                                  title: Text(
+                                      'Usuario y/o contraseña incorrectos'),
+                                );
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alert;
+                                  },
+                                );
                               }
                             },
                             text: 'Login',
@@ -205,24 +216,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                           text: 'Registrarse',
                           options: FFButtonOptions(
-                            width: 130.0,
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Colors.transparent,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF8A8A8A),
-                                      fontSize: 14.0,
-                                    ),
-                            borderSide: BorderSide(
-                              width: 0.0,
-                            ),
-                            borderRadius: BorderRadius.circular(0.0),
-                          ),
+                              width: 130.0,
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0x0),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 14.0,
+                                  ),
+                              borderSide: BorderSide(
+                                width: 0.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0)),
                         ),
                       ],
                     ),

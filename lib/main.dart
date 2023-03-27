@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -6,21 +7,34 @@ import 'package:get/get.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'flutter_flow/nav/nav.dart';
+import 'package:path/path.dart' as p;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Future<LocationPermission> permission = Geolocator.requestPermission();
   final String response =
       await rootBundle.loadString('assets/jsons/users.json');
-  final users = await json.decode(response)["users"];
+  final users = await json.decode(response);
   UserController controller = Get.put(UserController());
   controller.users = users;
 
   runApp(MyApp());
 }
 
+Future<File> get _localFile async {
+  return File(p.join('assets', 'jsons', 'users.json'));
+}
+
+Future<File> writeCounter(List<Map> users) async {
+  final file = await _localFile;
+  print(file);
+  // Write the file
+  return file.writeAsString(json.encode(users));
+}
+
 class UserController extends GetxController {
   var users;
+  var loggedUser;
 }
 
 class MyApp extends StatefulWidget {

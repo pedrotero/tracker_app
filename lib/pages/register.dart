@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:get/get.dart';
+import 'dart:async';
+import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:path/path.dart' as p;
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key}) : super(key: key);
@@ -14,15 +18,29 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  TextEditingController _controllerUser = TextEditingController();
+  TextEditingController _controllerPass = TextEditingController();
+  final UserController usercon = Get.find();
   @override
   void initState() {
     super.initState();
   }
 
+  Future<File> get _localFile async {
+    return File(p.join('/data', 'users.json'));
+  }
+
+  Future<File> writeUser(List<dynamic> users) async {
+    final file = await _localFile;
+    print(file);
+    // Write the file
+    return file.writeAsString(json.encode(users));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
@@ -49,9 +67,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                 child: TextFormField(
+                  controller: _controllerUser,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: 'Your Name',
+                    labelText: 'Nombre',
                     labelStyle: FlutterFlowTheme.of(context).bodyText2,
                     hintStyle: FlutterFlowTheme.of(context).bodyText2,
                     enabledBorder: OutlineInputBorder(
@@ -92,64 +111,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
+                  maxLines: 1,
                 ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                 child: TextFormField(
-                  obscureText: false,
+                  controller: _controllerPass,
+                  obscureText: true,
                   decoration: InputDecoration(
-                    labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                    hintText: 'Password',
-                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
-                child: TextFormField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Your City',
+                    labelText: 'Contraseña',
                     labelStyle: FlutterFlowTheme.of(context).bodyText2,
                     hintStyle: FlutterFlowTheme.of(context).bodyText2,
                     enabledBorder: OutlineInputBorder(
@@ -190,7 +161,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
+                  maxLines: 1,
                 ),
               ),
               Align(
@@ -199,9 +170,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      var newUser = {
+                        "usuario": _controllerUser.text,
+                        "contraseña": _controllerPass.text
+                      };
+                      usercon.loggedUser = usercon.users.add(newUser);
+                      //await writeUser(usercon.users);
                       context.pushNamed('Home');
                     },
-                    text: 'Save Changes',
+                    text: 'Registrarse',
                     options: FFButtonOptions(
                       width: 270.0,
                       height: 50.0,

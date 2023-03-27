@@ -54,6 +54,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   get: ^4.6.5
   geolocator: ^9.0.2
+  path_provider: ^2.0.14
 
 dev_dependencies:
 

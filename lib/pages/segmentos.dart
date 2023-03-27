@@ -1,10 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class SegmentosWidget extends StatefulWidget {
   const SegmentosWidget({Key? key}) : super(key: key);
@@ -70,9 +67,6 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Builder(
                     builder: (context) {
-                      final random = List.generate(
-                          random_data.randomInteger(0, 0),
-                          (index) => random_data.randomInteger(0, 10)).toList();
                       return DataTable2(
                         columns: [
                           DataColumn2(
