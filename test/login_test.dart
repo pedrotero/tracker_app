@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Comprobar si el usuario y la contraseña son correctos', () {
-    var usercon = Usercon();
+    var usercon = Usercon(); // suponiendo que se tiene una instancia de Usercon
     var _controllerUser = TextEditingController(text: 'usuario1');
     var _controllerPass = TextEditingController(text: 'contraseña1');
 
@@ -65,5 +65,5 @@ void main() {
 
 class Usercon {
   List<Map<String, String>> users = [];
-  late Map<String, String> loggedUser;
+  Map<String, String> loggedUser = {};
 }

@@ -3,6 +3,13 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+double calculateDistance(double x1, double y1, double x2, double y2) {
+  final dx = x2 - x1;
+  final dy = y2 - y1;
+  return sqrt(dx * dx + dy * dy);
+}
 
 class InActionWidget extends StatefulWidget {
   const InActionWidget({Key? key}) : super(key: key);
