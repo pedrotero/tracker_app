@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:tracker_app/users.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   final UserController usercon = Get.find();
+
   TextEditingController _controllerUser = TextEditingController();
   TextEditingController _controllerPass = TextEditingController();
 
@@ -160,18 +163,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 30.0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              var tempUser = {
-                                "usuario": _controllerUser.text,
-                                "contraseña": _controllerPass.text
-                              };
-                              var userIndex = usercon.users.indexWhere((user) =>
-                                  mapEquals({
-                                    "usuario": user["usuario"],
-                                    "contraseña": user["contraseña"]
-                                  }, tempUser));
-                              if (userIndex != -1) {
-                                usercon.loggedUser = usercon.users[userIndex];
+                            onPressed: () async {
+                              var users = await getUsers();
+                              print(users);
+                              var userRes = users.singleWhere(
+                                  (user) =>
+                                      user.name == _controllerUser.text &&
+                                      user.password == _controllerPass.text,
+                                  orElse: () => Users(name: "", password: ""));
+
+                              if (userRes.name != "") {
+                                usercon.loggedUser = userRes.name;
                                 context.pushNamed("Home");
                               } else {
                                 print("a");
@@ -246,4 +248,13 @@ class _LoginWidgetState extends State<LoginWidget> {
       ),
     );
   }
+}
+
+Future<List<Users>> getUsers() async {
+  return Hive.box("users").values.map((e) {
+    return Users(
+      name: e.name,
+      password: e.password,
+    );
+  }).toList();
 }

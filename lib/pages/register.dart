@@ -1,13 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:get/get.dart';
-import 'dart:async';
 import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as p;
+import 'package:hive/hive.dart';
+import 'package:tracker_app/users.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key}) : super(key: key);
@@ -20,21 +18,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController _controllerUser = TextEditingController();
   TextEditingController _controllerPass = TextEditingController();
-  final UserController usercon = Get.find();
+  final UserController boxcon = Get.find();
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<File> get _localFile async {
-    return File(p.join('/data', 'users.json'));
-  }
-
-  Future<File> writeUser(List<dynamic> users) async {
-    final file = await _localFile;
-    print(file);
-    // Write the file
-    return file.writeAsString(json.encode(users));
   }
 
   @override
@@ -170,12 +157,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      var newUser = {
-                        "usuario": _controllerUser.text,
-                        "contraseña": _controllerPass.text
-                      };
-                      usercon.loggedUser = usercon.users.add(newUser);
-                      //await writeUser(usercon.users);
+                      addUser(Users(
+                          name: _controllerUser.text,
+                          password: _controllerPass.text));
+                      boxcon.loggedUser = _controllerUser.text;
                       context.pushNamed('Home');
                     },
                     text: 'Registrarse',
@@ -209,4 +194,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       ),
     );
   }
+}
+
+addUser(Users user) {
+  Hive.box("users").add(Users(name: user.name, password: user.password));
 }
