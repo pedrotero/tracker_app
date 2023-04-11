@@ -1,15 +1,13 @@
+import 'dart:async';
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
-double calculateDistance(double x1, double y1, double x2, double y2) {
-  final dx = x2 - x1;
-  final dy = y2 - y1;
-  return sqrt(dx * dx + dy * dy);
-}
+import 'package:geolocator/geolocator.dart';
 
 class InActionWidget extends StatefulWidget {
   const InActionWidget({Key? key}) : super(key: key);
@@ -21,11 +19,36 @@ class InActionWidget extends StatefulWidget {
 class _InActionWidgetState extends State<InActionWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  final stopwatch = Stopwatch();
+  double totdist = 0.0;
+  late Position lastpos;
+  late Position pos;
+  final Set<Polyline> _polyline = {};
+  final LocationSettings locationSettings = LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 10,
+  );
 
   @override
   void initState() {
+    pos = _getCurrentLocation();
+    stopwatch.start();
     super.initState();
-
+    // ignore: cancel_subscriptions, unused_local_variable
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position position) {
+      lastpos = pos;
+      pos = position;
+      LatLng latlen = LatLng(position.latitude, position.longitude);
+      totdist += calculateDistance(
+          lastpos.latitude, lastpos.longitude, pos.latitude, pos.longitude);
+      _polyline.add(Polyline(
+        polylineId: PolylineId('1'),
+        points: [latlen],
+        color: Colors.green,
+      ));
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -62,74 +85,10 @@ class _InActionWidgetState extends State<InActionWidget> {
               Expanded(
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                      target: LatLng(13.106061, -59.613158), zoom: 12),
-                  markers: {
-                    Marker(
-                      markerId: MarkerId('marker_1'),
-                      position: LatLng(37.7749, -122.4194),
-                      infoWindow: InfoWindow(title: 'San Francisco'),
-                    ),
-                  },
+                      target: LatLng(11.011754, -74.831736), zoom: 12),
+                  polylines: _polyline,
                 ),
               ),
-              // Expanded(
-              //   child: FlutterFlowGoogleMap(
-              //     controller: _model.googleMapsController,
-              //     onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
-              //     initialLocation: _model.googleMapsCenter ??=
-              //         LatLng(13.106061, -59.613158),
-              //     markerColor: GoogleMarkerColor.violet,
-              //     mapType: MapType.normal,
-              //     style: GoogleMapStyle.standard,
-              //     initialZoom: 14.0,
-              //     allowInteraction: true,
-              //     allowZoom: true,
-              //     showZoomControls: true,
-              //     showLocation: true,
-              //     showCompass: false,
-              //     showMapToolbar: false,
-              //     showTraffic: false,
-              //     centerMapOnMarkerTap: true,
-              //   ),
-              // ),
-              // Row(
-              //   mainAxisSize: MainAxisSize.max,
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     FlutterFlowTimer(
-              //       initialTime: _model.timerMilliseconds,
-              //       getDisplayTime: (value) => StopWatchTimer.getDisplayTime(
-              //           value,
-              //           milliSecond: false),
-              //       timer: _model.timerController,
-              //       updateStateInterval: Duration(milliseconds: 1000),
-              //       onChanged: (value, displayTime, shouldUpdate) {
-              //         _model.timerMilliseconds = value;
-              //         _model.timerValue = displayTime;
-              //         if (shouldUpdate) setState(() {});
-              //       },
-              //       textAlign: TextAlign.start,
-              //       style: FlutterFlowTheme.of(context).bodyText1.override(
-              //             fontFamily: 'Poppins',
-              //             color: FlutterFlowTheme.of(context).primaryColor,
-              //             fontSize: 30.0,
-              //             fontWeight: FontWeight.normal,
-              //           ),
-              //     ),
-              //     Padding(
-              //       padding:
-              //           EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-              //       child: Text(
-              //         '(distance)',
-              //         style: FlutterFlowTheme.of(context).bodyText1.override(
-              //               fontFamily: 'Poppins',
-              //               fontSize: 30.0,
-              //             ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
                 child: Row(
@@ -140,7 +99,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.5, 0.0),
                       child: Text(
-                        '0.00 km',
+                        '$totdist m',
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Poppins',
                               fontSize: 30.0,
@@ -151,7 +110,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(12.5, 0.0, 0.0, 0.0),
                       child: Text(
-                        '00:00',
+                        stopwatch.elapsed.toString(),
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Poppins',
                               fontSize: 30.0,
@@ -172,7 +131,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.5, 0.0),
                       child: FFButtonWidget(
                         onPressed: () {
-                          print('Button pressed ...');
+                          stopwatch.stop();
                         },
                         text: 'Pausar',
                         options: FFButtonOptions(
@@ -233,5 +192,24 @@ class _InActionWidgetState extends State<InActionWidget> {
         ),
       ),
     );
+  }
+
+  double calculateDistance(double x1, double y1, double x2, double y2) {
+    final dx = x2 - x1;
+    final dy = y2 - y1;
+    return sqrt(dx * dx + dy * dy);
+  }
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        pos = position;
+      });
+    }).catchError((e) {
+      print(e);
+    });
   }
 }
