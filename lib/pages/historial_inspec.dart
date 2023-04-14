@@ -78,16 +78,12 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                 ),
               ),
               Expanded(
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                      target: LatLng(13.106061, -59.613158), zoom: 12),
-                  markers: {
-                    Marker(
-                      markerId: MarkerId('marker_1'),
-                      position: LatLng(37.7749, -122.4194),
-                      infoWindow: InfoWindow(title: 'San Francisco'),
-                    ),
-                  },
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                        target: LatLng(11.011754, -74.831736), zoom: 12),
+                  ),
                 ),
               ),
             ],

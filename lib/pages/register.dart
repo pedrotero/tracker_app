@@ -157,11 +157,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      addUser(Users(
-                          name: _controllerUser.text,
-                          password: _controllerPass.text));
-                      boxcon.loggedUser = _controllerUser.text;
-                      context.pushNamed('Home');
+                      if (checkUser(_controllerUser.text)) {
+                        addUser(Users(
+                            name: _controllerUser.text,
+                            password: _controllerPass.text));
+                        boxcon.loggedUser = _controllerUser.text;
+                        context.pushNamed('Home');
+                      } else {
+                        AlertDialog alert = AlertDialog(
+                          title: Text('Nombre de usuario ya registrado'),
+                        );
+                      }
                     },
                     text: 'Registrarse',
                     options: FFButtonOptions(
@@ -194,8 +200,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       ),
     );
   }
-}
 
-addUser(Users user) {
-  Hive.box("users").add(Users(name: user.name, password: user.password));
+  addUser(Users user) {
+    Hive.box("users").add(user);
+  }
+
+  bool checkUser(String name) {
+    Users? valuser = boxcon.boxes![0].values
+        .lastWhere((user) => user.name == name, orElse: () => null);
+
+    return valuser == null;
+  }
 }

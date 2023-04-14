@@ -81,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 100.0),
                           child: Text(
-                            'Hola, ' + usercon.loggedUser,
+                            'Hola, ' + usercon.loggedUser!,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
