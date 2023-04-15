@@ -19,8 +19,10 @@ class ActividadesAdapter extends TypeAdapter<Actividades> {
     return Actividades(
       date: fields[0] as DateTime,
       totdist: fields[1] as double,
-      recorr: (fields[2] as Set).cast<Polyline>(),
-      dur: fields[3] as Duration,
+      recorr: (fields[2] as List)
+          .map((dynamic e) => (e as Map).cast<String, double>())
+          .toList(),
+      dur: fields[3] as int,
       user: fields[4] as String,
     );
   }
@@ -34,7 +36,7 @@ class ActividadesAdapter extends TypeAdapter<Actividades> {
       ..writeByte(1)
       ..write(obj.totdist)
       ..writeByte(2)
-      ..write(obj.recorr.toList())
+      ..write(obj.recorr)
       ..writeByte(3)
       ..write(obj.dur)
       ..writeByte(4)

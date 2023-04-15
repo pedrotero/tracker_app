@@ -19,9 +19,9 @@ class Actividades extends HiveObject {
   @HiveField(1)
   double totdist;
   @HiveField(2)
-  Set<Polyline> recorr;
+  List<Map<String, double>> recorr;
   @HiveField(3)
-  Duration dur;
+  int dur;
   @HiveField(4)
   String user;
 }

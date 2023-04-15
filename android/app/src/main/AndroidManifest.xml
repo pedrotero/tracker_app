@@ -39,7 +39,7 @@
               android:resource="@drawable/launch_background"
               />
             <meta-data android:name="com.google.android.geo.API-KEY"
-                        android:value="AIzaSyA8b6l59LSr7hyJECkBIVgiBpjpa4rTGUA"
+                        android:value="AIzaSyBtkw9oAMVku9CM1V6e04KEI7nEr_rhD6w"
                 />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -61,7 +61,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA8b6l59LSr7hyJECkBIVgiBpjpa4rTGUA"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBtkw9oAMVku9CM1V6e04KEI7nEr_rhD6w"/>
 
 
     </application>

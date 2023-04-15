@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:tracker_app/actividades.dart';
-import 'package:vector_math/vector_math.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -24,10 +23,12 @@ class _InActionWidgetState extends State<InActionWidget> {
   final _unfocusNode = FocusNode();
   final stopwatch = Stopwatch();
   double totdist = 0.0;
+  Timer? _timer;
+  StreamSubscription<Position>? _positionStream;
   late LatLng lastpos;
-  String stopStr = '00:00:00 s';
   LatLng pos = LatLng(0, 0);
-  Set<Polyline> _polyline = {};
+  List<LatLng> points = [];
+  Set<Polyline> _polylines = {};
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 10,
@@ -42,33 +43,39 @@ class _InActionWidgetState extends State<InActionWidget> {
     super.initState();
     stopwatch.start();
     // ignore: cancel_subscriptions, unused_local_variable
-    StreamSubscription<Position> positionStream =
+    _positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((Position position) {
       setState(() {
         if (pos != LatLng(0, 0)) {
           lastpos = pos;
           pos = _getLatLng(position);
-          print("lastpos $lastpos pos $pos");
-          totdist += distance(
+          totdist += Geolocator.distanceBetween(
               lastpos.latitude, lastpos.longitude, pos.latitude, pos.longitude);
         }
-        print("alo manzana");
         pos = _getLatLng(position);
-        _polyline.add(Polyline(
+        points.add(pos);
+        _polylines.add(Polyline(
           polylineId: PolylineId('1'),
-          points: [pos],
-          color: Color.fromARGB(255, 94, 255, 83),
+          points: points,
+          color: Colors.green,
         ));
-        print(_polyline);
-
         mapController?.animateCamera(
             CameraUpdate.newCameraPosition(CameraPosition(target: pos, zoom: 18)
                 //17 is new zoom level
                 ));
       });
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    _timer = new Timer.periodic(new Duration(milliseconds: 500), (timer) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer!.cancel();
+    _positionStream!.cancel();
+    super.dispose();
   }
 
   @override
@@ -83,7 +90,7 @@ class _InActionWidgetState extends State<InActionWidget> {
         title: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Text(
-            'Activity',
+            'Actividad',
             style: FlutterFlowTheme.of(context).title2.override(
                   fontFamily: 'Poppins',
                   color: Color.fromARGB(255, 255, 255, 255),
@@ -102,8 +109,6 @@ class _InActionWidgetState extends State<InActionWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                  child: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
                 child: GoogleMap(
                   onMapCreated: (controller) {
                     //method called when map is created
@@ -111,11 +116,13 @@ class _InActionWidgetState extends State<InActionWidget> {
                       mapController = controller;
                     });
                   },
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(11.011754, -74.831736), zoom: 12),
-                  polylines: _polyline,
+                  polylines: _polylines,
                 ),
-              )),
+              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
                 child: Row(
@@ -137,9 +144,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(12.5, 0.0, 0.0, 0.0),
                       child: Text(
-                        Duration(seconds: stopwatch.elapsed.inSeconds)
-                            .toString()
-                            .substring(0, 10),
+                        "${Duration(milliseconds: stopwatch.elapsed.inMilliseconds).toString().substring(0, 7)} s",
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Poppins',
                               fontSize: 30.0,
@@ -192,9 +197,8 @@ class _InActionWidgetState extends State<InActionWidget> {
                           addAct(Actividades(
                               date: DateTime.now(),
                               totdist: totdist,
-                              recorr: _polyline,
-                              dur: Duration(
-                                  seconds: stopwatch.elapsed.inSeconds),
+                              recorr: _encodeRecorr(points),
+                              dur: stopwatch.elapsed.inMilliseconds,
                               user: boxcon.loggedUser!));
                           context.pushNamed('Home');
                         },
@@ -240,22 +244,13 @@ class _InActionWidgetState extends State<InActionWidget> {
     return LatLng(pos.latitude, pos.longitude);
   }
 
-  double distance(double lat1, double lon1, double lat2, double lon2) {
-    const R = 6371; // radius of the earth in kilometers
-    var lat1Rad = radians(lat1);
-    var lon1Rad = radians(lon1);
-    var lat2Rad = radians(lat2);
-    var lon2Rad = radians(lon2);
-    var dLat = lat2Rad - lat1Rad;
-    var dLon = lon2Rad - lon1Rad;
-    var a = pow(sin(dLat / 2), 2) +
-        cos(lat1Rad) * cos(lat2Rad) * pow(sin(dLon / 2), 2);
-    var c = 2 * atan2(sqrt(a), sqrt(1 - a));
-    var d = R * c * 1000; // distance in meters
-    return d;
+  addAct(Actividades act) {
+    Hive.box("actividades").add(act);
   }
 
-  addAct(Actividades act) {
-    Hive.box("users").add(act);
+  List<Map<String, double>> _encodeRecorr(List<LatLng> points) {
+    return points
+        .map((point) => {"lat": point.latitude, "long": point.longitude})
+        .toList();
   }
 }
