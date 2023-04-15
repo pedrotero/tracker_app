@@ -3,12 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
-import '../flutter_flow_theme.dart';
 
 import '../../index.dart';
-import '../../main.dart';
 
-import '../place.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -104,6 +101,7 @@ extension NavigationExtensions on BuildContext {
   void safePop() {
     // If there is only one route on the stack, navigate to the initial
     // page instead of popping.
+    // ignore: invalid_use_of_visible_for_testing_member
     if (GoRouter.of(this).routerDelegate.matches.length <= 1) {
       go('/');
     } else {

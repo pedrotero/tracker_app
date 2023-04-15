@@ -1,8 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'flutter_flow/flutter_flow_google_map.dart';
-
 part 'actividades.g.dart';
 
 @HiveType(typeId: 1)
@@ -12,7 +10,8 @@ class Actividades extends HiveObject {
       required this.totdist,
       required this.recorr,
       required this.dur,
-      required this.user});
+      required this.user,
+      required this.tipo});
 
   @HiveField(0)
   DateTime date;
@@ -24,4 +23,6 @@ class Actividades extends HiveObject {
   int dur;
   @HiveField(4)
   String user;
+  @HiveField(5)
+  String tipo;
 }

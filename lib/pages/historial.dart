@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+
+import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -13,9 +16,7 @@ class HistorialWidget extends StatefulWidget {
 class _HistorialWidgetState extends State<HistorialWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
-  int randomIndex = 3;
-  int randomItem = 3;
+  final UserController boxcon = Get.find();
 
   @override
   void initState() {
@@ -125,45 +126,37 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                               ),
                             ),
                           ),
-                        ],
-                        rows: <DataRow>[
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('20/03/2023')),
-                              DataCell(Text('5km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('HistorialInspec');
-                                  })),
-                              DataCell(Text('30:00')),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('20/03/2023')),
-                              DataCell(Text('5km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('HistorialInspec');
-                                  })),
-                              DataCell(Text('30:00')),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('20/03/2023')),
-                              DataCell(Text('5km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('HistorialInspec');
-                                  })),
-                              DataCell(Text('30:00')),
-                            ],
+                          DataColumn2(
+                            label: DefaultTextStyle.merge(
+                              softWrap: true,
+                              child: Text(
+                                'Tipo',
+                                style: FlutterFlowTheme.of(context)
+                                    .title3
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      fontSize: 16.0,
+                                    ),
+                              ),
+                            ),
                           ),
                         ],
+                        rows: boxcon.boxes![1].values.toList().map((act) {
+                          return DataRow(
+                            cells: [
+                              DataCell(Text(act.date.toString())),
+                              DataCell(Text(act.totdist.toString())),
+                              DataCell(TextButton(
+                                  onPressed: () {}, child: Text("Ver"))),
+                              DataCell(Text(Duration(milliseconds: act.dur)
+                                  .toString()
+                                  .substring(0, 7))),
+                              DataCell(Text(act.tipo)),
+                            ],
+                          );
+                        }).toList(),
                         headingRowColor: MaterialStateProperty.all(
                           Color(0xFF464646),
                         ),

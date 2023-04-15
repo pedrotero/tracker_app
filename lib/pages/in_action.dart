@@ -144,7 +144,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(12.5, 0.0, 0.0, 0.0),
                       child: Text(
-                        "${Duration(milliseconds: stopwatch.elapsed.inMilliseconds).toString().substring(0, 7)} s",
+                        "${Duration(milliseconds: stopwatch.elapsed.inMilliseconds).toString().substring(0, 7)}",
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Poppins',
                               fontSize: 30.0,
@@ -199,7 +199,8 @@ class _InActionWidgetState extends State<InActionWidget> {
                               totdist: totdist,
                               recorr: _encodeRecorr(points),
                               dur: stopwatch.elapsed.inMilliseconds,
-                              user: boxcon.loggedUser!));
+                              user: boxcon.loggedUser!,
+                              tipo: boxcon.tipo!));
                           context.pushNamed('Home');
                         },
                         text: 'Finalizar',
@@ -246,6 +247,7 @@ class _InActionWidgetState extends State<InActionWidget> {
 
   addAct(Actividades act) {
     Hive.box("actividades").add(act);
+    print(boxcon.boxes![1].values);
   }
 
   List<Map<String, double>> _encodeRecorr(List<LatLng> points) {

@@ -122,7 +122,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   },
                                 ) ??
                                 false;
-
+                            usercon.tipo =
+                                confirmDialogResponse ? "Trote" : "Ciclismo";
                             context.pushNamed('InAction');
                           },
                           text: 'Iniciar Actividad',

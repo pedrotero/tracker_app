@@ -165,7 +165,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: FFButtonWidget(
                             onPressed: () async {
                               var users = await getUsers();
-                              print(users);
                               var userRes = users.singleWhere(
                                   (user) =>
                                       user.name == _controllerUser.text &&
@@ -176,7 +175,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 usercon.loggedUser = userRes.name;
                                 context.pushNamed("Home");
                               } else {
-                                print("a");
                                 AlertDialog alert = AlertDialog(
                                   title: Text(
                                       'Usuario y/o contraseña incorrectos'),

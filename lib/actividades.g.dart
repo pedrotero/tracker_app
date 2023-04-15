@@ -24,13 +24,14 @@ class ActividadesAdapter extends TypeAdapter<Actividades> {
           .toList(),
       dur: fields[3] as int,
       user: fields[4] as String,
+      tipo: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Actividades obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.date)
       ..writeByte(1)
@@ -40,7 +41,9 @@ class ActividadesAdapter extends TypeAdapter<Actividades> {
       ..writeByte(3)
       ..write(obj.dur)
       ..writeByte(4)
-      ..write(obj.user);
+      ..write(obj.user)
+      ..writeByte(5)
+      ..write(obj.tipo);
   }
 
   @override

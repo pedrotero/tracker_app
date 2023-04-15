@@ -11,11 +11,10 @@ import 'flutter_flow/nav/nav.dart';
 void main() async {
   Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
-  Future<LocationPermission> permission = Geolocator.requestPermission();
+  Geolocator.requestPermission();
   UserController controller = Get.put(UserController());
 
   controller.boxes = await _openBoxes();
-
   runApp(MyApp());
 }
 
@@ -30,6 +29,7 @@ class UserController extends GetxController {
   //boxes: 0 users, 1 actividades
   List<Box>? boxes;
   String? loggedUser;
+  String? tipo;
 }
 
 class MyApp extends StatefulWidget {
