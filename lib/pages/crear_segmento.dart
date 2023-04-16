@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:tracker_app/main.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,7 +18,12 @@ class CrearSegmentoWidget extends StatefulWidget {
 class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
+  final UserController boxcon = Get.find();
+  int markeropt = 0;
+  LatLng orglatlng = LatLng(0, 0);
+  LatLng deslatlng = LatLng(0, 0);
+  String orgtext = "";
+  String destext = "";
   @override
   void initState() {
     super.initState();
@@ -63,145 +71,67 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 20.0, 0.0),
-              child: TextFormField(
-                autofocus: true,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Origen',
-                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(40.0, 20.0, 20.0, 20.0),
+              child: TextButton(
+                child: Text(
+                  "Origen: $orgtext",
+                  style: TextStyle(color: Color.fromARGB(172, 255, 56, 56)),
                 ),
-                style: FlutterFlowTheme.of(context).bodyText1,
-                keyboardType: TextInputType.streetAddress,
+                onPressed: () {
+                  setState(() {
+                    markeropt = 1;
+                  });
+                },
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 20.0, 0.0),
-              child: TextFormField(
-                autofocus: true,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Destino',
-                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF39EFB7),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(40.0, 20.0, 20.0, 20.0),
+              child: TextButton(
+                child: Text(
+                  "Destino: $destext",
+                  style: TextStyle(color: Color.fromARGB(172, 56, 119, 255)),
                 ),
-                style: FlutterFlowTheme.of(context).bodyText1,
-                keyboardType: TextInputType.streetAddress,
+                onPressed: () {
+                  setState(() {
+                    markeropt = 2;
+                  });
+                },
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                      target: LatLng(11.011754, -74.831736), zoom: 12),
-                ),
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(11.011754, -74.831736), zoom: 19),
+                onTap: (LatLng location) {
+                  setState(() {
+                    if (markeropt == 1) {
+                      orglatlng = location;
+                    } else if (markeropt == 2) {
+                      deslatlng = location;
+                    }
+                  });
+                },
+                markers: {
+                  Marker(
+                      markerId: MarkerId("origen"),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueRed),
+                      position: orglatlng),
+                  Marker(
+                      markerId: MarkerId("destino"),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueBlue),
+                      position: deslatlng),
+                },
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  context.pushNamed('Segmentos');
+                  if (orgtext != "" && destext != "") {
+                    context.pushNamed('Segmentos');
+                  }
                 },
                 text: 'Crear',
                 options: FFButtonOptions(

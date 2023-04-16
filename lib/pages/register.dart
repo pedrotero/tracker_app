@@ -165,7 +165,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         context.pushNamed('Home');
                       } else {
                         AlertDialog alert = AlertDialog(
-                          title: Text('Nombre de usuario ya registrado'),
+                          title: Text('Usuario ya registrado'),
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return alert;
+                          },
                         );
                       }
                     },

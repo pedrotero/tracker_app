@@ -22,7 +22,11 @@ Future<List<Box>> _openBoxes() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UsersAdapter());
   Hive.registerAdapter(ActividadesAdapter());
-  return [await Hive.openBox("users"), await Hive.openBox("actividades")];
+  return [
+    await Hive.openBox("users"),
+    await Hive.openBox("actividades"),
+    await Hive.openBox("segment")
+  ];
 }
 
 class UserController extends GetxController {
@@ -58,10 +62,6 @@ class _MyAppState extends State<MyApp> {
   void setLocale(String language) {
     setState(() => _locale = createLocale(language));
   }
-
-  void setThemeMode(ThemeMode mode) => setState(() {
-        _themeMode = mode;
-      });
 
   @override
   Widget build(BuildContext context) {

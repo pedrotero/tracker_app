@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+
+import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +17,9 @@ class HistorialInspecWidget extends StatefulWidget {
 class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  final UserController boxcon = Get.find();
 
+  GoogleMapController? mapController;
   @override
   void initState() {
     super.initState();
@@ -66,7 +71,7 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                 child: Text(
-                  'Distancia recorrida: (Km)',
+                  'Distancia recorrida: (m)',
                   style: FlutterFlowTheme.of(context).bodyText1,
                 ),
               ),
@@ -78,12 +83,16 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(11.011754, -74.831736), zoom: 12),
-                  ),
+                child: GoogleMap(
+                  onMapCreated: (controller) {
+                    //method called when map is created
+                    setState(() {
+                      mapController = controller;
+                    });
+                  },
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(11.011754, -74.831736), zoom: 12),
+                  polylines: {},
                 ),
               ),
             ],
@@ -91,5 +100,9 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
         ),
       ),
     );
+  }
+
+  Set<Polyline> mapToPoly() {
+    return {};
   }
 }

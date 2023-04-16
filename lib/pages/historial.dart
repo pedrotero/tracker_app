@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +33,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
         title: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Text(
-            'Historial de actividades',
+            'Tu historial de actividades',
             style: FlutterFlowTheme.of(context).title2.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -81,14 +80,14 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Distancia Bruta',
+                                'Distancia Bruta (m)',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      fontSize: 16.0,
+                                      fontSize: 12.0,
                                     ),
                               ),
                             ),
@@ -105,7 +104,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      fontSize: 16.0,
+                                      fontSize: 12.0,
                                     ),
                               ),
                             ),
@@ -121,7 +120,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      fontSize: 16.0,
+                                      fontSize: 14.0,
                                     ),
                               ),
                             ),
@@ -143,11 +142,21 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             ),
                           ),
                         ],
-                        rows: boxcon.boxes![1].values.toList().map((act) {
+                        rows: boxcon.boxes![1].values
+                            .toList()
+                            .where((act) => act.user == boxcon.loggedUser)
+                            .map((act) {
                           return DataRow(
                             cells: [
-                              DataCell(Text(act.date.toString())),
-                              DataCell(Text(act.totdist.toString())),
+                              DataCell(Text(
+                                act.date.toString().substring(0, 16),
+                                textAlign: TextAlign.center,
+                                textScaleFactor: 0.9,
+                              )),
+                              DataCell(Text(
+                                act.totdist.toInt().toString().padLeft(6),
+                                textAlign: TextAlign.end,
+                              )),
                               DataCell(TextButton(
                                   onPressed: () {}, child: Text("Ver"))),
                               DataCell(Text(Duration(milliseconds: act.dur)
@@ -164,7 +173,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                         dataRowColor: MaterialStateProperty.all(
                           FlutterFlowTheme.of(context).secondaryBackground,
                         ),
-                        dataRowHeight: 56.0,
+                        dataRowHeight: 60.0,
                         border: TableBorder(
                           borderRadius: BorderRadius.circular(4.0),
                         ),

@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -163,8 +161,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 30.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              var users = await getUsers();
+                            onPressed: () {
+                              var users = getUsers();
                               var userRes = users.singleWhere(
                                   (user) =>
                                       user.name == _controllerUser.text &&
@@ -246,13 +244,8 @@ class _LoginWidgetState extends State<LoginWidget> {
       ),
     );
   }
-}
 
-Future<List<Users>> getUsers() async {
-  return Hive.box("users").values.map((e) {
-    return Users(
-      name: e.name,
-      password: e.password,
-    );
-  }).toList();
+  List getUsers() {
+    return usercon.boxes![0].values.toList();
+  }
 }

@@ -18,6 +18,7 @@ class Actividades extends HiveObject {
   @HiveField(1)
   double totdist;
   @HiveField(2)
+  //{"lat": 394592, "lon": 92394}
   List<Map<String, double>> recorr;
   @HiveField(3)
   int dur;
