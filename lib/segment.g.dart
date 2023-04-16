@@ -17,7 +17,7 @@ class segmentAdapter extends TypeAdapter<segment> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return segment(
-      user: fields[2] as String,
+      nombre: fields[2] as String,
       origen: fields[0] as double,
       destino: fields[1] as double,
     );
@@ -27,12 +27,12 @@ class segmentAdapter extends TypeAdapter<segment> {
   void write(BinaryWriter writer, segment obj) {
     writer
       ..writeByte(3)
+      ..writeByte(2)
+      ..write(obj.nombre)
       ..writeByte(0)
       ..write(obj.origen)
       ..writeByte(1)
-      ..write(obj.destino)
-      ..writeByte(2)
-      ..write(obj.user);
+      ..write(obj.destino);
   }
 
   @override
