@@ -2,6 +2,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:tracker_app/main.dart';
+import 'package:get/get.dart';
 
 class SegmentosWidget extends StatefulWidget {
   const SegmentosWidget({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class SegmentosWidget extends StatefulWidget {
 class _SegmentosWidgetState extends State<SegmentosWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  final UserController boxcon = Get.find();
 
   @override
   void initState() {
@@ -89,23 +93,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Distancia Bruta',
-                                style: FlutterFlowTheme.of(context)
-                                    .title3
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 16.0,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          DataColumn2(
-                            label: DefaultTextStyle.merge(
-                              softWrap: true,
-                              child: Text(
-                                'Origen y Destino',
+                                'Origen',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .title3
@@ -122,7 +110,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Tiempo Récord',
+                                'Destino',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -135,44 +123,23 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             ),
                           ),
                         ],
-                        rows: <DataRow>[
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('Malecon')),
-                              DataCell(Text('2km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('SegmentoInspec');
-                                  })),
-                              DataCell(Text('12:00')),
+                        rows: boxcon.boxes![1].values.toList().map((act) {
+                          return DataRow(
+                            cells: [
+                              DataCell(Text(
+                                act.date.toString().substring(0, 16),
+                                textAlign: TextAlign.center,
+                                textScaleFactor: 0.9,
+                              )),
+                              DataCell(Text(
+                                act.totdist.toInt().toString().padLeft(6),
+                                textAlign: TextAlign.end,
+                              )),
+                              DataCell(TextButton(
+                                  onPressed: () {}, child: Text("Ver"))),
                             ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('Malecon')),
-                              DataCell(Text('2km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('SegmentoInspec');
-                                  })),
-                              DataCell(Text('12:00')),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('Malecon')),
-                              DataCell(Text('2km')),
-                              DataCell(InkWell(
-                                  child: Text('Ver'),
-                                  onTap: () async {
-                                    context.pushNamed('SegmentoInspec');
-                                  })),
-                              DataCell(Text('12:00')),
-                            ],
-                          ),
-                        ],
+                          );
+                        }).toList(),
                         headingRowColor: MaterialStateProperty.all(
                           Color(0xFF464646),
                         ),
