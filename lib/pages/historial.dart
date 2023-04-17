@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
-import '../main.dart';
+import 'package:tracker_app/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +159,11 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                                 textAlign: TextAlign.end,
                               )),
                               DataCell(TextButton(
-                                  onPressed: () {}, child: Text("Ver"))),
+                                  onPressed: () {
+                                    boxcon.keyAct = act.key;
+                                    context.pushNamed('HistorialInspec');
+                                  },
+                                  child: Text("Ver"))),
                               DataCell(Text(Duration(milliseconds: act.dur)
                                   .toString()
                                   .substring(0, 7))),

@@ -35,6 +35,7 @@ class UserController extends GetxController {
   List<Box>? boxes;
   String? loggedUser;
   String? tipo;
+  int? keyAct;
 }
 
 class MyApp extends StatefulWidget {

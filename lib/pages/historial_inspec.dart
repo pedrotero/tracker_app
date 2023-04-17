@@ -18,11 +18,21 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   final UserController boxcon = Get.find();
-
+  Set<Polyline> _polylines = {};
+  List<LatLng> points = [];
   GoogleMapController? mapController;
   @override
   void initState() {
     super.initState();
+    points = _decodeLatLng(boxcon.boxes![1].values
+            .firstWhere((act) => act.key == boxcon.keyAct)
+            .recorr)
+        .toList();
+    _polylines.add(Polyline(
+      polylineId: PolylineId('1'),
+      points: points,
+      color: Colors.green,
+    ));
   }
 
   @override
@@ -55,31 +65,31 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 80.0, 0.0, 0.0),
-                  child: Text(
-                    '(Hora inicio)',
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          fontSize: 30.0,
-                        ),
-                  ),
-                ),
-              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                 child: Text(
-                  'Distancia recorrida: (m)',
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                ),
+                    boxcon.boxes![1].values
+                            .firstWhere((act) => act.key == boxcon.keyAct)
+                            .totdist
+                            .toInt()
+                            .toString() +
+                        " m",
+                    style: FlutterFlowTheme.of(context)
+                        .bodyText1
+                        .override(fontFamily: 'Poppins', fontSize: 30.0)),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                 child: Text(
-                  'Duración: (hh:mm:ss)',
-                  style: FlutterFlowTheme.of(context).bodyText1,
+                  Duration(
+                          milliseconds: boxcon.boxes![1].values
+                              .firstWhere((act) => act.key == boxcon.keyAct)
+                              .dur)
+                      .toString()
+                      .substring(0, 7),
+                  style: FlutterFlowTheme.of(context)
+                      .bodyText1
+                      .override(fontFamily: 'Poppins', fontSize: 30.0),
                 ),
               ),
               Expanded(
@@ -90,9 +100,11 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                       mapController = controller;
                     });
                   },
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(11.011754, -74.831736), zoom: 12),
-                  polylines: {},
+                  polylines: _polylines,
                 ),
               ),
             ],
@@ -100,6 +112,11 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
         ),
       ),
     );
+  }
+
+  _decodeLatLng(List<Map<String, double>> points) {
+    print(points);
+    return points.map((point) => LatLng(point["lat"]!, point["long"]!));
   }
 
   Set<Polyline> mapToPoly() {
