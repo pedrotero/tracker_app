@@ -178,8 +178,14 @@ class _CrearSegmentoWidgetState extends State<CrearSegmentoWidget> {
                   if (orgtext != "" && destext != "") {
                     addSeg(Segment(
                         nombre: _controllerNombre.text,
-                        origen: [orglatlng.latitude, orglatlng.longitude],
-                        destino: [deslatlng.latitude, deslatlng.longitude],
+                        origen: {
+                          "lat": orglatlng.latitude,
+                          "long": orglatlng.longitude
+                        },
+                        destino: {
+                          "lat": deslatlng.latitude,
+                          "long": deslatlng.longitude
+                        },
                         record: 0));
                     context.pushNamed('Segmentos');
                   }

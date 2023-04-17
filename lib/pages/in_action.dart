@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:get/get.dart';
 import 'package:tracker_app/actividades.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tracker_app/leaderboard.dart';
 import '../main.dart';
+import '../segment.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -29,6 +30,8 @@ class _InActionWidgetState extends State<InActionWidget> {
   LatLng pos = LatLng(0, 0);
   List<LatLng> points = [];
   Set<Polyline> _polylines = {};
+  List<Marker> markers = [];
+  List<Map<String, dynamic>> suscritos = [];
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 10,
@@ -42,6 +45,19 @@ class _InActionWidgetState extends State<InActionWidget> {
   void initState() {
     super.initState();
     stopwatch.start();
+    markers.addAll(boxcon.boxes![2].values
+        .toList()
+        .map((e) => [
+              Marker(
+                  markerId: MarkerId("${e.key}org"),
+                  position: _decodeLatLng(e.origen),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(e.key * 18.0)),
+              Marker(
+                  markerId: MarkerId("${e.key}des"),
+                  position: _decodeLatLng(e.destino),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(e.key * 18.0))
+            ])
+        .expand((list) => list));
     // ignore: cancel_subscriptions, unused_local_variable
     _positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
@@ -54,6 +70,23 @@ class _InActionWidgetState extends State<InActionWidget> {
               lastpos.latitude, lastpos.longitude, pos.latitude, pos.longitude);
         }
         pos = _getLatLng(position);
+        suscritos = _checkAddSegment(suscritos, pos);
+        List<Map<String, dynamic>> segclear =
+            _checkClearSegment(suscritos, pos);
+        for (Map sus in segclear) {
+          print("polo");
+          var seg = sus["seg"];
+          num time = stopwatch.elapsedMilliseconds - sus["time"];
+          seg.record = seg.record < time && seg.record > 0
+              ? seg.record
+              : stopwatch.elapsedMilliseconds;
+          addLeaderBoard(Leaderboard(
+              dur: time.toInt(), user: boxcon.loggedUser!, segment: seg.key));
+          suscritos.remove(sus);
+        }
+
+        print("alo manzana");
+        print("pipo$suscritos");
         points.add(pos);
         _polylines.add(Polyline(
           polylineId: PolylineId('1'),
@@ -116,6 +149,7 @@ class _InActionWidgetState extends State<InActionWidget> {
                       mapController = controller;
                     });
                   },
+                  markers: markers.toSet(),
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   initialCameraPosition: CameraPosition(
@@ -235,12 +269,6 @@ class _InActionWidgetState extends State<InActionWidget> {
     );
   }
 
-  int calculateDistance(double x1, double y1, double x2, double y2) {
-    final dx = x2 - x1;
-    final dy = y2 - y1;
-    return sqrt(dx * dx + dy * dy).round();
-  }
-
   _getLatLng(Position pos) {
     return LatLng(pos.latitude, pos.longitude);
   }
@@ -254,5 +282,51 @@ class _InActionWidgetState extends State<InActionWidget> {
     return points
         .map((point) => {"lat": point.latitude, "long": point.longitude})
         .toList();
+  }
+
+  _decodeLatLng(Map<String, double> point) {
+    return LatLng(point["lat"]!, point["long"]!);
+  }
+
+  List<Map<String, dynamic>> _checkAddSegment(
+      List<Map<String, dynamic>> list, LatLng pos) {
+    for (Segment seg in boxcon.boxes![2].values.toList()) {
+      if (Geolocator.distanceBetween(pos.latitude, pos.longitude,
+              seg.origen["lat"]!, seg.origen["long"]!) <=
+          7.5) {
+        // ignore: unnecessary_null_comparison
+        // if (list.isNotEmpty) {
+        //   if (!(list.lastWhere((sus) => sus["seg"].key == seg.key,
+        //           orElse: null) !=
+        //       null)) {
+        //     list.add({"seg": seg, "time": stopwatch.elapsed});
+        //     print('wah $list');
+        //   } else {
+        //     print("duplicate segment");
+        //   }
+        // }
+        list.add({"seg": seg, "time": stopwatch.elapsedMilliseconds});
+      }
+    }
+    return list;
+  }
+
+  List<Map<String, dynamic>> _checkClearSegment(
+      List<Map<String, dynamic>> list, LatLng pos) {
+    List<Map<String, dynamic>> segclear = [];
+    for (Map<String, dynamic> sus in list) {
+      if (Geolocator.distanceBetween(pos.latitude, pos.longitude,
+              sus["seg"].destino["lat"]!, sus["seg"].destino["long"]!) <=
+          7.5) {
+        segclear.add(sus);
+        print('bih$segclear');
+      }
+    }
+    return segclear;
+  }
+
+  addLeaderBoard(Leaderboard lead) {
+    Hive.box("leaderboard").add(lead);
+    print(boxcon.boxes![3].values);
   }
 }

@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+
+import '../main.dart';
+import '../segment.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,9 +18,13 @@ class SegmentableWidget extends StatefulWidget {
 class _SegmentableWidgetState extends State<SegmentableWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
+  final UserController boxcon = Get.find();
+  Segment? seg;
   @override
   void initState() {
+    seg = boxcon.boxes![2].values
+        .toList()
+        .firstWhere((seg) => seg.key == boxcon.keySeg);
     super.initState();
   }
 
@@ -65,7 +73,7 @@ class _SegmentableWidgetState extends State<SegmentableWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                   child: Text(
-                    '(Nombre del Segmento)',
+                    '${seg!.nombre}',
                     style: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Poppins',
                           fontSize: 30.0,
@@ -82,7 +90,7 @@ class _SegmentableWidgetState extends State<SegmentableWidget> {
                           label: DefaultTextStyle.merge(
                             softWrap: true,
                             child: Text(
-                              'Fecha',
+                              'Usuario',
                               style:
                                   FlutterFlowTheme.of(context).title3.override(
                                         fontFamily: 'Poppins',
@@ -107,20 +115,24 @@ class _SegmentableWidgetState extends State<SegmentableWidget> {
                           ),
                         ),
                       ],
-                      rows: <DataRow>[
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('Malecon')),
-                            DataCell(Text('2km')),
+                      rows: boxcon.boxes![3].values
+                          .toList()
+                          .where((lead) => lead.segment == seg!.key)
+                          .map((lead) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(
+                              lead.user,
+                              textAlign: TextAlign.center,
+                              textScaleFactor: 0.9,
+                            )),
+                            DataCell(Text(
+                              Duration(milliseconds: lead.dur).toString(),
+                              textAlign: TextAlign.end,
+                            )),
                           ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('Malecon')),
-                            DataCell(Text('2km')),
-                          ],
-                        ),
-                      ],
+                        );
+                      }).toList(),
                       headingRowColor: MaterialStateProperty.all(
                         FlutterFlowTheme.of(context).primaryBackground,
                       ),

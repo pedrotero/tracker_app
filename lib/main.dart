@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:tracker_app/actividades.dart';
+import 'package:tracker_app/leaderboard.dart';
 import 'package:tracker_app/segment.dart';
 import 'package:tracker_app/users.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -23,19 +24,22 @@ Future<List<Box>> _openBoxes() async {
   Hive.registerAdapter(UsersAdapter());
   Hive.registerAdapter(ActividadesAdapter());
   Hive.registerAdapter(SegmentAdapter());
+  Hive.registerAdapter(LeaderboardAdapter());
   return [
     await Hive.openBox("users"),
     await Hive.openBox("actividades"),
-    await Hive.openBox("segment")
+    await Hive.openBox("segment"),
+    await Hive.openBox("leaderboard")
   ];
 }
 
 class UserController extends GetxController {
-  //boxes: 0 users, 1 actividades
+  //boxes: 0 users, 1 actividades, 2 segmentos, 3 leaderboards
   List<Box>? boxes;
   String? loggedUser;
   String? tipo;
   int? keyAct;
+  int? keySeg;
 }
 
 class MyApp extends StatefulWidget {

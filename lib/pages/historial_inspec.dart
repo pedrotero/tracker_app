@@ -100,8 +100,6 @@ class _HistorialInspecWidgetState extends State<HistorialInspecWidget> {
                       mapController = controller;
                     });
                   },
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(11.011754, -74.831736), zoom: 12),
                   polylines: _polylines,

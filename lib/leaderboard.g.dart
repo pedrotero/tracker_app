@@ -1,41 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'segment.dart';
+part of 'leaderboard.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SegmentAdapter extends TypeAdapter<Segment> {
+class LeaderboardAdapter extends TypeAdapter<Leaderboard> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  Segment read(BinaryReader reader) {
+  Leaderboard read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Segment(
-      nombre: fields[2] as String,
-      origen: (fields[0] as Map).cast<String, double>(),
-      destino: (fields[1] as Map).cast<String, double>(),
-      record: fields[3] as int,
+    return Leaderboard(
+      dur: fields[0] as int,
+      user: fields[1] as String,
+      segment: fields[2] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Segment obj) {
+  void write(BinaryWriter writer, Leaderboard obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.origen)
-      ..writeByte(1)
-      ..write(obj.destino)
-      ..writeByte(2)
-      ..write(obj.nombre)
       ..writeByte(3)
-      ..write(obj.record);
+      ..writeByte(0)
+      ..write(obj.dur)
+      ..writeByte(1)
+      ..write(obj.user)
+      ..writeByte(2)
+      ..write(obj.segment);
   }
 
   @override
@@ -44,7 +41,7 @@ class SegmentAdapter extends TypeAdapter<Segment> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SegmentAdapter &&
+      other is LeaderboardAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

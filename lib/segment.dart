@@ -12,9 +12,9 @@ class Segment extends HiveObject {
       required this.record});
 
   @HiveField(0)
-  List<double> origen;
+  Map<String, double> origen;
   @HiveField(1)
-  List<double> destino;
+  Map<String, double> destino;
   @HiveField(2)
   String nombre;
   @HiveField(3)

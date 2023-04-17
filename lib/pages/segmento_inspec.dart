@@ -1,4 +1,7 @@
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../main.dart';
+import '../segment.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -16,9 +19,13 @@ class SegmentoInspecWidget extends StatefulWidget {
 class _SegmentoInspecWidgetState extends State<SegmentoInspecWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
+  final UserController boxcon = Get.find();
+  Segment? seg;
   @override
   void initState() {
+    seg = boxcon.boxes![2].values
+        .toList()
+        .firstWhere((seg) => seg.key == boxcon.keySeg);
     super.initState();
   }
 
@@ -57,7 +64,7 @@ class _SegmentoInspecWidgetState extends State<SegmentoInspecWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 80.0, 0.0, 0.0),
                   child: Text(
-                    '(Nombre del Segmento)',
+                    '${seg!.nombre}',
                     style: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Poppins',
                           fontSize: 30.0,
@@ -66,56 +73,29 @@ class _SegmentoInspecWidgetState extends State<SegmentoInspecWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                child: Text(
-                  'Tiempo promedio: (hh:mm:dd)',
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                ),
-              ),
-              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                 child: Text(
-                  'Tiempo récord: (hh:mm:dd)',
+                  'Tiempo récord: ${Duration(milliseconds: seg!.record).toString().substring(0, 7)}',
                   style: FlutterFlowTheme.of(context).bodyText1,
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(11.011754, -74.831736), zoom: 12),
-                  ),
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(11.011754, -74.831736), zoom: 12),
+                  markers: {
+                    Marker(
+                        markerId: MarkerId("${seg!.key}org"),
+                        position: _decodeLatLng(seg!.origen),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(0)),
+                    Marker(
+                        markerId: MarkerId("${seg!.key}des"),
+                        position: _decodeLatLng(seg!.destino),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueBlue))
+                  },
                 ),
               ),
-              // Expanded(
-              //   child: FlutterFlowGoogleMap(
-              //     controller: _model.googleMapsController,
-              //     onCameraIdle: (latLng) => _model.googleMapsCenter = latLng,
-              //     initialLocation: _model.googleMapsCenter ??=
-              //         LatLng(13.106061, -59.613158),
-              //     markers: (widget.aaaaa ?? [])
-              //         .map(
-              //           (marker) => FlutterFlowMarker(
-              //             marker.serialize(),
-              //             marker,
-              //           ),
-              //         )
-              //         .toList(),
-              //     markerColor: GoogleMarkerColor.violet,
-              //     mapType: MapType.normal,
-              //     style: GoogleMapStyle.standard,
-              //     initialZoom: 14.0,
-              //     allowInteraction: true,
-              //     allowZoom: true,
-              //     showZoomControls: true,
-              //     showLocation: true,
-              //     showCompass: true,
-              //     showMapToolbar: false,
-              //     showTraffic: false,
-              //     centerMapOnMarkerTap: true,
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 20.0),
                 child: FFButtonWidget(
@@ -147,5 +127,9 @@ class _SegmentoInspecWidgetState extends State<SegmentoInspecWidget> {
         ),
       ),
     );
+  }
+
+  _decodeLatLng(Map<String, double> point) {
+    return LatLng(point["lat"]!, point["long"]!);
   }
 }

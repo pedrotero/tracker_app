@@ -133,11 +133,17 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                                 textScaleFactor: 0.9,
                               )),
                               DataCell(Text(
-                                seg.record.toString(),
+                                Duration(milliseconds: seg.record)
+                                    .toString()
+                                    .substring(0, 7),
                                 textAlign: TextAlign.end,
                               )),
                               DataCell(TextButton(
-                                  onPressed: () {}, child: Text("Ver"))),
+                                  onPressed: () {
+                                    boxcon.keySeg = seg.key;
+                                    context.pushNamed('SegmentoInspec');
+                                  },
+                                  child: Text("Ver"))),
                             ],
                           );
                         }).toList(),
