@@ -20,19 +20,22 @@ class SegmentAdapter extends TypeAdapter<Segment> {
       nombre: fields[2] as String,
       origen: (fields[0] as List).cast<double>(),
       destino: (fields[1] as List).cast<double>(),
+      record: fields[3] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Segment obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.origen)
       ..writeByte(1)
       ..write(obj.destino)
       ..writeByte(2)
-      ..write(obj.nombre);
+      ..write(obj.nombre)
+      ..writeByte(3)
+      ..write(obj.record);
   }
 
   @override

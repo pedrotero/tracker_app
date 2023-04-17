@@ -5,11 +5,11 @@ part 'segment.g.dart';
 
 @HiveType(typeId: 2)
 class Segment extends HiveObject {
-  Segment({
-    required this.nombre,
-    required this.origen,
-    required this.destino,
-  });
+  Segment(
+      {required this.nombre,
+      required this.origen,
+      required this.destino,
+      required this.record});
 
   @HiveField(0)
   List<double> origen;
@@ -17,4 +17,6 @@ class Segment extends HiveObject {
   List<double> destino;
   @HiveField(2)
   String nombre;
+  @HiveField(3)
+  int record;
 }

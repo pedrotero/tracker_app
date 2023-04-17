@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:tracker_app/actividades.dart';
+import 'package:tracker_app/segment.dart';
 import 'package:tracker_app/users.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
@@ -13,7 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Geolocator.requestPermission();
   UserController controller = Get.put(UserController());
-
   controller.boxes = await _openBoxes();
   runApp(MyApp());
 }
@@ -22,6 +22,7 @@ Future<List<Box>> _openBoxes() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UsersAdapter());
   Hive.registerAdapter(ActividadesAdapter());
+  Hive.registerAdapter(SegmentAdapter());
   return [
     await Hive.openBox("users"),
     await Hive.openBox("actividades"),

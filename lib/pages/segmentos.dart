@@ -1,3 +1,4 @@
+import '../segment.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -93,7 +94,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Origen',
+                                'Tiempo Récord',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .title3
@@ -110,7 +111,7 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             label: DefaultTextStyle.merge(
                               softWrap: true,
                               child: Text(
-                                'Destino',
+                                'Origen y Destino',
                                 style: FlutterFlowTheme.of(context)
                                     .title3
                                     .override(
@@ -123,16 +124,16 @@ class _SegmentosWidgetState extends State<SegmentosWidget> {
                             ),
                           ),
                         ],
-                        rows: boxcon.boxes![1].values.toList().map((act) {
+                        rows: boxcon.boxes![2].values.toList().map((seg) {
                           return DataRow(
                             cells: [
                               DataCell(Text(
-                                act.date.toString().substring(0, 16),
+                                seg.nombre,
                                 textAlign: TextAlign.center,
                                 textScaleFactor: 0.9,
                               )),
                               DataCell(Text(
-                                act.totdist.toInt().toString().padLeft(6),
+                                seg.record.toString(),
                                 textAlign: TextAlign.end,
                               )),
                               DataCell(TextButton(
